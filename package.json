@@ -1,0 +1,85 @@
+{
+  "name": "taskmaster-mcp",
+  "version": "0.4.2",
+  "description": "Model Context Protocol server for Taskmaster",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "taskmaster-mcp": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup --dts",
+    "type-check": "tsc --noEmit",
+    "start": "node dist/cli.js",
+    "start:cli": "cross-env NODE_ENV=cli node dist/cli.js",
+    "start:http": "node dist/cli.js",
+    "dev": "cross-env NODE_ENV=development tsup --watch",
+    "dev:cli": "cross-env NODE_ENV=development tsup --watch -- --stdio",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "inspect": "pnpx @modelcontextprotocol/inspector",
+    "prepack": "pnpm build",
+    "changeset": "changeset add",
+    "version": "changeset version && git add -A",
+    "beta:start": "changeset pre enter beta",
+    "beta:end": "changeset pre exit",
+    "beta:version": "changeset version && pnpm install --lockfile-only",
+    "beta:publish": "changeset publish",
+    "prerelease": "pnpm build",
+    "release": "changeset publish && git push --follow-tags",
+    "pub:release": "pnpm build && npm publish",
+    "pub:release:beta": "pnpm build && npm publish --tag beta"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@10.10.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickfreedom/taskmaster-mcp.git"
+  },
+  "homepage": "https://www.framelink.ai",
+  "keywords": [
+    "mcp",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2",
+    "@types/yargs": "^17.0.33",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.2",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.5.0",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "pnpm exec prettier --write",
+      "pnpm exec eslint --fix"
+    ],
+    "*.{json,md}": [
+      "pnpm exec prettier --write"
+    ]
+  }
+}
